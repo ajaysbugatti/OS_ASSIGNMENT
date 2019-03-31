@@ -3,13 +3,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-// Semaphores
-int s_mutex=1;
-int s_full=0;
-int s_empty=6;
 
-// for tracking current item
-int cur_item=0;
+int s_mutex=1;int s_full=0;int s_empty=6;int cur_item=0;
 
 int wait(int s)
 {
@@ -20,8 +15,6 @@ int signal(int s)
 {
 	return(++s);
 }
-
-// Producer Code
 void producer()
 {
 	s_mutex = wait(s_mutex);
@@ -32,7 +25,7 @@ void producer()
 	s_mutex=signal(s_mutex);
 }
 
-// consumer code
+
 void consumer()
 {
 	s_mutex=wait(s_mutex);
@@ -47,11 +40,11 @@ void consumer()
 int main()
 {
 	int choice;
-	printf("Choose one of the following:\n");
-	printf("\n1.Producer\n2.Consumer\n3.Terminate");
+	printf("Choose one of thethem:\n");
+	printf("\n1.Prodcer\n2.consuer\n3.terminate");
 	while(1)
 	{
-		printf("\nEnter Choice:");
+		printf("\nEnter choices:");
 		scanf("%d",&choice);
 		switch(choice)
 		{
