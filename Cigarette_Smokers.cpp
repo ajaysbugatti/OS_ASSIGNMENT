@@ -1,3 +1,8 @@
+/*   17114006
+Ajay Dayma
+cse 2nd yr
+*/
+
 #include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
@@ -6,9 +11,9 @@
 
 using namespace std;
 
-sem_t tobacco_and_paper;
-sem_t matches_and_paper;
-sem_t tobacco_and_matches;
+sem_t tobacco_n_paper;
+sem_t matches_n_paper;
+sem_t tobacco_n_matche;
 sem_t done_smoking, lock;
 int smoker_ids[] = {1, 2, 3};
 string smoker_materials[] = {"Matches", "Paper", "Tobacco"};
@@ -18,15 +23,15 @@ void *smoker(void *arg){
     while(true){
         switch (smoker_id) {
           case 1:
-            sem_wait(&tobacco_and_paper);
+            sem_wait(&tobacco_n_paper);
             sem_wait(&lock);
             break;
           case 2:
-            sem_wait(&tobacco_and_matches);
+            sem_wait(&tobacco_n_matches);
             sem_wait(&lock);
            break;
           case 3:
-            sem_wait(&matches_and_paper);
+            sem_wait(&matches_n_paper);
             sem_wait(&lock);
            break;
         }
@@ -45,13 +50,13 @@ void *agent(void *arg){
         switch (random_number)
         {
             case 1:
-                sem_post(&tobacco_and_matches);
+                sem_post(&tobacco_n_matches);
                 break;
             case 2:
-                sem_post(&tobacco_and_paper);
+                sem_post(&tobacco_n_paper);
                 break;
             case 3:
-                sem_post(&matches_and_paper);
+                sem_post(&matches_n_paper);
                 break;
             default:
                 break;
@@ -69,9 +74,9 @@ int main(){
 
     sem_init(&done_smoking, 0, 1);
     sem_init(&lock, 0, 1);
-    sem_init(&tobacco_and_matches, 0, 0);
-    sem_init(&matches_and_paper, 0, 0);
-    sem_init(&tobacco_and_paper, 0, 0);
+    sem_init(&tobacco_n_matches, 0, 0);
+    sem_init(&matches_n_paper, 0, 0);
+    sem_init(&tobacco_n_paper, 0, 0);
 
     pthread_create(&agent_thread, NULL, agent, NULL);
     pthread_create(&smoker_thread[0], NULL, smoker, &smoker_ids[0]);
@@ -80,3 +85,5 @@ int main(){
 
     pthread_exit(NULL);
 }
+
+
