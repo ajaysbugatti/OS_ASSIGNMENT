@@ -1,3 +1,8 @@
+/* 17114006 
+Ajay DAyma
+cse 2nd yr
+*/
+
 #include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
@@ -16,9 +21,7 @@ void *barber(void *arg){
         sem_wait(&s_customer);
         sem_wait(&s_seats);
         empty++;
-        sem_post(&s_barber);
-        sem_post(&s_seats);
-        cout <<"\nCustomer hair cuts"<< endl;
+        sem_post(&s_barber); sem_post(&s_seats);cout <<"\nCust. hair cuts"<< endl;
         sleep(3);
     }
 }
@@ -27,14 +30,12 @@ void *customer(void *arg){
     while(true){
         sem_wait(&s_seats);
         if(empty > 0){
-            empty--;
-            sem_post(&s_customer);
-            sem_post(&s_seats);
-            sem_wait(&s_barber);
+            empty--;sem_post(&s_customer);
+            sem_post(&s_seats);sem_wait(&s_barber);
         }
         else{
             sem_post(&s_seats);
-            cout << "\nNo empty seats for the customer." << endl;
+            cout << "\nNo empty seats " << endl;
         }
         sleep(1);
     }
