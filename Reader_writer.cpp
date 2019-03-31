@@ -1,3 +1,7 @@
+/*  
+17114006
+ajay dayma cse 2nd yr
+*/
 #include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
